@@ -36,8 +36,59 @@ class Main extends CI_Controller {
         {
             $this->createPost();
         } else {
-            echo 'sucess';
+            $data = $this->input->post();
+            unset($data['submit']);
+            $data['date_created'] = date('Y-m-d');
+            //save data to DB
+            $this->load->model('posts_model');
+            if($this->posts_model->savePost($data)) {
+                $this->session->set_flashdata('msg','Post saved successfully');
+            } else {
+                $this->session->set_flashdata('msg','Failed! Try again');
+            }
+            return redirect('main');
         }
+    }
+
+    public function update ($id){
+
+        $this->load->model('posts_model');
+        $post = $this->posts_model->getSinglePost($id);
+
+        $this->loadHead();
+        $this->load->view('update_view',array('post' => $post));
+        $this->loadFoot();
+    }
+
+    public function change($id) {
+        $this->form_validation->set_rules('title','Title','required|max_length[15]');
+        $this->form_validation->set_rules('description','Description','required|max_length[350]');
+
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->update();
+        } else {
+            $data = $this->input->post();
+            unset($data['submit']);
+            $data['date_created'] = date('Y-m-d');
+            //save data to DB
+            $this->load->model('posts_model');
+            if( $this->posts_model->updatePost($data,$id) ) {
+                $this->session->set_flashdata('msg','Post updated successfully');
+            } else {
+                $this->session->set_flashdata('msg','Failed! Try again');
+            }
+            return redirect('main');
+        }
+    }
+
+    public function view($id) {
+        $this->load->model('posts_model');
+        $post = $this->posts_model->getSinglePost($id);
+
+        $this->loadHead();
+        $this->load->view('view',array('post' => $post));
+        $this->loadFoot();
     }
 
 }

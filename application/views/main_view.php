@@ -23,9 +23,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <td><?php  echo $post->description; ?></td>
                         <td><?php  echo $post->date_created; ?></td>
                         <td>
-                            <?php echo anchor('main/view', 'View', 'class="badge badge-pill badge-info"'); ?>
-                            <?php echo anchor('main/update', 'Update', 'class="badge badge-pill badge-success"'); ?>
-                            <?php echo anchor('main/delete', 'Delete', 'class="badge badge-pill badge-danger"'); ?>
+                            <?php echo anchor("main/view/{$post->id}", 'View', 'class="badge badge-pill badge-info"'); ?>
+                            <?php echo anchor("main/update/{$post->id}", 'Update', 'class="badge badge-pill badge-success"'); ?>
+                            <?php echo anchor("main/delete/{$post->id}", 'Delete', 'class="badge badge-pill badge-danger"'); ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

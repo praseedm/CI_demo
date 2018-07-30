@@ -82,12 +82,6 @@ body {
   outline: 0 !important;
 }
 
-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-}
-
 hr {
   -webkit-box-sizing: content-box;
           box-sizing: content-box;
